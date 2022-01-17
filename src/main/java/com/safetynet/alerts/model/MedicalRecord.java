@@ -11,8 +11,6 @@ import java.util.List;
 @Entity
 public class MedicalRecord {
 
-    public MedicalRecord() {}
-
     @Id
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +31,17 @@ public class MedicalRecord {
 
     @ElementCollection
     private List<String> allergies;
+
+    public MedicalRecord() {}
+
+    public MedicalRecord(Long id, String firstName, String lastName, LocalDate birthdate, List<String> medications, List<String> allergies) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthdate = birthdate;
+        this.medications = medications;
+        this.allergies = allergies;
+    }
 
     public Long getId() {
         return id;
