@@ -68,7 +68,7 @@ public class FireStationCommunityService {
         }
 
         CalculationAge calculationAge = new CalculationAge();
-        int adultCount = medicalRecords.stream().map(i->calculationAge.getAge(i.getBirthdate()) >= 18 ? 1 : 0).reduce(0, Integer::sum);
+        int adultCount = medicalRecords.stream().map(i->calculationAge.getAge(i.getBirthdate()) > 18 ? 1 : 0).reduce(0, Integer::sum);
         int childCount = medicalRecords.size() - adultCount;
 
         return new FireStationCommunityDto(communityMemberDtos, adultCount, childCount);
