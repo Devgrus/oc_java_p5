@@ -1,22 +1,19 @@
 package com.safetynet.alerts.util;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestComponent;
+
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.time.*;
 
-@SpringBootTest
+@TestComponent
 public class CalculationAgeTest {
 
-    @InjectMocks
-    CalculationAge calculationAge;
-
-    @BeforeEach
-    public void initEach() {
+    @BeforeAll
+    static void initBefore() {
         LocalDate now = LocalDate.of(2022, 7, 1);
         Clock clock = Clock.fixed(now.atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
         mockStatic(Clock.class)
@@ -31,7 +28,7 @@ public class CalculationAgeTest {
         //when
 
         //then
-        assertThat(calculationAge.getAge(null)).isEqualTo(-1);
+        assertThat(CalculationAge.getInstance().getAge(null)).isEqualTo(-1);
     }
 
 
@@ -43,18 +40,18 @@ public class CalculationAgeTest {
         //when
 
         //then
-        assertThat(calculationAge.getAge(birthDate)).isEqualTo(0);
+        assertThat(CalculationAge.getInstance().getAge(birthDate)).isEqualTo(0);
     }
 
     @Test
     public void getAgeTestBirthDateLateThanNow() throws Exception {
         //given
-        LocalDate birthDate = LocalDate.of(2022, 1, 15);
+        LocalDate birthDate = LocalDate.of(2022, 8, 15);
 
         //when
 
         //then
-        assertThat(calculationAge.getAge(birthDate)).isEqualTo(-1);
+        assertThat(CalculationAge.getInstance().getAge(birthDate)).isEqualTo(-1);
     }
 
     @Test
@@ -65,6 +62,6 @@ public class CalculationAgeTest {
         //when
 
         //then
-        assertThat(calculationAge.getAge(birthDate)).isEqualTo(10);
+        assertThat(CalculationAge.getInstance().getAge(birthDate)).isEqualTo(10);
     }
 }

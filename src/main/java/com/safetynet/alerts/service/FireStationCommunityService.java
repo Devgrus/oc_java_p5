@@ -18,9 +18,9 @@ import java.util.List;
 @Service
 public class FireStationCommunityService {
 
-    private FireStationRepository fireStationRepository;
-    private MedicalRecordRepository medicalRecordRepository;
-    private PersonRepository personRepository;
+    private final FireStationRepository fireStationRepository;
+    private final MedicalRecordRepository medicalRecordRepository;
+    private final PersonRepository personRepository;
 
     @Autowired
     public FireStationCommunityService(FireStationRepository fireStationRepository, MedicalRecordRepository medicalRecordRepository, PersonRepository personRepository) {
@@ -48,7 +48,7 @@ public class FireStationCommunityService {
 
         List<Person> persons = new ArrayList<>();
         addressList.stream()
-                .map(i -> personRepository.findPersonsByAddress(i)) // Get addresses
+                .map(personRepository::findPersonsByAddress) // Get addresses
                 .filter(i -> i.size() > 0)
                 .forEach(persons::addAll);
 
@@ -67,8 +67,7 @@ public class FireStationCommunityService {
             communityMemberDtos.add(new CommunityMemberDto(person.getFirstName(), person.getLastName(), person.getAddress(), person.getPhone()));
         }
 
-        CalculationAge calculationAge = new CalculationAge();
-        int adultCount = medicalRecords.stream().map(i->calculationAge.getAge(i.getBirthdate()) > 18 ? 1 : 0).reduce(0, Integer::sum);
+        int adultCount = medicalRecords.stream().map(i->CalculationAge.getInstance().getAge(i.getBirthdate()) > 18 ? 1 : 0).reduce(0, Integer::sum);
         int childCount = medicalRecords.size() - adultCount;
 
         return new FireStationCommunityDto(communityMemberDtos, adultCount, childCount);

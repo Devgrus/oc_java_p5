@@ -8,6 +8,17 @@ import java.time.Period;
 
 @Component
 public class CalculationAge {
+    private CalculationAge() {}
+
+    private static class CalculationAgeLazyHolder {
+        public static final CalculationAge INSTANCE = new CalculationAge();
+    }
+
+    public static CalculationAge getInstance() {
+        return CalculationAgeLazyHolder.INSTANCE;
+    }
+
+
     /**
      * Calculate age with birthdate
      * @param birthDate birthdate of person
