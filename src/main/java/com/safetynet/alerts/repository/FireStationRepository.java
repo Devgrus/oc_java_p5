@@ -10,4 +10,5 @@ import java.util.List;
 public interface FireStationRepository extends JpaRepository<FireStation, Long> {
 
     List<FireStation> findFireStationsByStation(Integer station);
+    FireStation findFireStationByAddress(String address);
 }
