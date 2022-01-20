@@ -30,8 +30,13 @@ public class FloodService {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-    public List<FloodDto> getResidentListByStationsNumbers(List<Integer> addressList) {
-        List<FireStation> fireStationList = addressList.stream()
+    /**
+     *
+     * @param stations List of stations numbers
+     * @return List of address and resident information at this address
+     */
+    public List<FloodDto> getResidentListByStationsNumbers(List<Integer> stations) {
+        List<FireStation> fireStationList = stations.stream()
                 .map(fireStationRepository::findFireStationsByStation)
                 .flatMap(Collection::stream).collect(Collectors.toList());
 

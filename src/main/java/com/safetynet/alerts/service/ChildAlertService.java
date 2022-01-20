@@ -27,6 +27,11 @@ public class ChildAlertService {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
+    /**
+     *
+     * @param address address
+     * @return list of children
+     */
     public List<ChildAlertDto> getChildrenList(String address) {
         List<Person> personList = personRepository.findAllByAddress(address); // find all persons who live at this address
 

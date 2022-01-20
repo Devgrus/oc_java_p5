@@ -31,7 +31,11 @@ public class FireService {
         this.medicalRecordRepository = medicalRecordRepository;
     }
 
-
+    /**
+     *
+     * @param address address
+     * @return station number and list of resident at this address
+     */
     public FireDto getResidentList(String address) {
         List<Person> personList = personRepository.findAllByAddress(address);
 

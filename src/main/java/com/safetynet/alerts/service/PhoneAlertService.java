@@ -23,6 +23,11 @@ public class PhoneAlertService {
         this.personRepository = personRepository;
     }
 
+    /**
+     *
+     * @param stationNumber station number
+     * @return list of person who live at this station's address
+     */
     public List<PhoneAlertDto> getPhoneList(int stationNumber) {
         List<FireStation> fireStationList = fireStationRepository.findFireStationsByStation(stationNumber);
 

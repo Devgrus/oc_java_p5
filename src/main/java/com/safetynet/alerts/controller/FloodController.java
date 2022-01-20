@@ -23,6 +23,11 @@ public class FloodController {
         this.floodService = floodService;
     }
 
+    /**
+     *
+     * @param stations List of stations numbers
+     * @return List of address and resident information at this address
+     */
     @GetMapping(value = "/stations")
     public List<FloodDto> getResidentListByStationsNumbers(@RequestParam List<Integer> stations) {
         logger.info("Request received: GET - /flood/stations, parameter(s) value(s): address = " + stations.toString());
