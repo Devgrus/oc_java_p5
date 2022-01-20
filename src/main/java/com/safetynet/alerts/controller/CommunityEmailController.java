@@ -21,6 +21,11 @@ public class CommunityEmailController {
         this.communityEmailService = communityEmailService;
     }
 
+    /**
+     *
+     * @param city city name
+     * @return List of residents' emails
+     */
     @GetMapping(value = "/communityEmail")
     public List<EmailDto> getEmailList(@RequestParam String city) {
         logger.info("Request received: GET - /communityEmail, parameter(s) value(s): " + city);
