@@ -63,9 +63,9 @@ public class FireStationCommunityServiceTest {
         //when
         when(fireStationRepository.findFireStationsByStation(anyInt())).thenReturn(fireStationList);
 
-        when(personRepository.findPersonsByAddress("10 aaa")).thenReturn(personList.subList(0,2));
-        when(personRepository.findPersonsByAddress("20 bbb")).thenReturn(personList.subList(2,4));
-        when(personRepository.findPersonsByAddress("30 ccc")).thenReturn(personList.subList(4,6));
+        when(personRepository.findAllByAddress("10 aaa")).thenReturn(personList.subList(0,2));
+        when(personRepository.findAllByAddress("20 bbb")).thenReturn(personList.subList(2,4));
+        when(personRepository.findAllByAddress("30 ccc")).thenReturn(personList.subList(4,6));
 
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("Am", "Aen")).thenReturn(medicalRecordList.get(0));
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("Bm", "Aen")).thenReturn(medicalRecordList.get(1));
@@ -100,7 +100,7 @@ public class FireStationCommunityServiceTest {
 
         //when
         when(fireStationRepository.findFireStationsByStation(anyInt())).thenReturn(fireStationList);
-        when(personRepository.findPersonsByAddress(anyString())).thenReturn(new ArrayList<>());
+        when(personRepository.findAllByAddress(anyString())).thenReturn(new ArrayList<>());
 
         //then
         assertThat(fireStationCommunityService.getFireStationCommunity(1)).isEqualTo(null);

@@ -31,7 +31,7 @@ public class PhoneAlertService {
         List<PhoneAlertDto> phoneAlertDtoList = new ArrayList<>();
 
         fireStationList.stream()
-                .map(i -> personRepository.findPersonsByAddress(i.getAddress()))
+                .map(i -> personRepository.findAllByAddress(i.getAddress()))
                 .flatMap(List::stream)
                 .forEach(i -> phoneAlertDtoList.add(new PhoneAlertDto(i.getPhone())));
 

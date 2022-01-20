@@ -62,10 +62,10 @@ public class FloodServiceTest {
         when(fireStationRepository.findFireStationsByStation(1)).thenReturn(fireStationList.subList(0,2));
         when(fireStationRepository.findFireStationsByStation(2)).thenReturn(fireStationList.subList(2,4));
 
-        when(personRepository.findPersonsByAddress("10 aaa")).thenReturn(personList.subList(0,2));
-        when(personRepository.findPersonsByAddress("20 bbb")).thenReturn(personList.subList(2,4));
-        when(personRepository.findPersonsByAddress("30 ccc")).thenReturn(personList.subList(4,5));
-        when(personRepository.findPersonsByAddress("40 ddd")).thenReturn(personList.subList(5,6));
+        when(personRepository.findAllByAddress("10 aaa")).thenReturn(personList.subList(0,2));
+        when(personRepository.findAllByAddress("20 bbb")).thenReturn(personList.subList(2,4));
+        when(personRepository.findAllByAddress("30 ccc")).thenReturn(personList.subList(4,5));
+        when(personRepository.findAllByAddress("40 ddd")).thenReturn(personList.subList(5,6));
 
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("Am", "Aen")).thenReturn(medicalRecordList.get(0));
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("Bm", "Aen")).thenReturn(medicalRecordList.get(1));

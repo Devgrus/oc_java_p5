@@ -63,7 +63,7 @@ public class ChildAlertServiceTest {
                 .when(Clock::systemDefaultZone)
                 .thenReturn(clock);
 
-        when(personRepository.findPersonsByAddress(testAddress)).thenReturn(personList.subList(0,4));
+        when(personRepository.findAllByAddress(testAddress)).thenReturn(personList.subList(0,4));
 
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("Am", "Aen")).thenReturn(medicalRecordList.get(0));
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("Bm", "Aen")).thenReturn(medicalRecordList.get(1));
@@ -81,7 +81,7 @@ public class ChildAlertServiceTest {
         //given
 
         //when
-        when(personRepository.findPersonsByAddress(anyString())).thenReturn(new ArrayList<>());
+        when(personRepository.findAllByAddress(anyString())).thenReturn(new ArrayList<>());
 
         //then
         assertThat(childAlertService.getChildrenList(anyString())).isNull();
@@ -95,7 +95,7 @@ public class ChildAlertServiceTest {
         personList.add(new Person(2L, "Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
 
         //when
-        when(personRepository.findPersonsByAddress(anyString())).thenReturn(personList);
+        when(personRepository.findAllByAddress(anyString())).thenReturn(personList);
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName(anyString(), anyString())).thenReturn(null);
 
         //then

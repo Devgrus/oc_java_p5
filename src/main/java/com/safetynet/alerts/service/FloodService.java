@@ -41,7 +41,7 @@ public class FloodService {
         List<FloodDto> floodDtoList = new ArrayList<>();
 
         for(FireStation fs : fireStationList) {
-            List<Person> personList = personRepository.findPersonsByAddress(fs.getAddress());
+            List<Person> personList = personRepository.findAllByAddress(fs.getAddress());
             if(personList.size() == 0) continue;
 
             List<ResidentDto> residentDtoList = new ArrayList<>();

@@ -48,7 +48,7 @@ public class FireStationCommunityService {
 
         List<Person> persons = new ArrayList<>();
         addressList.stream()
-                .map(personRepository::findPersonsByAddress) // Get addresses
+                .map(personRepository::findAllByAddress) // Get addresses
                 .filter(i -> i.size() > 0)
                 .forEach(persons::addAll);
 

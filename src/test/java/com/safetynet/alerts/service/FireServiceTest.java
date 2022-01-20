@@ -49,7 +49,7 @@ public class FireServiceTest {
         medicalRecordList.add(new MedicalRecord(3L, "Cm", "Ben", LocalDate.of(1980, 6, 12), List.of("e", "f"), List.of("z")));
 
         //when
-        when(personRepository.findPersonsByAddress("10 aaa")).thenReturn(personList);
+        when(personRepository.findAllByAddress("10 aaa")).thenReturn(personList);
 
         when(fireStationRepository.findFireStationByAddress("10 aaa")).thenReturn(fireStation);
 
@@ -70,7 +70,7 @@ public class FireServiceTest {
         FireStation fireStation = new FireStation(1L, "10 aaa", 1);
 
         //when
-        when(personRepository.findPersonsByAddress("10 aaa")).thenReturn(new ArrayList<>());
+        when(personRepository.findAllByAddress("10 aaa")).thenReturn(new ArrayList<>());
 
         //then
         assertThat(fireService.getResidentList("10 aaa")).isNull();
@@ -88,7 +88,7 @@ public class FireServiceTest {
         personList.add(new Person(2L, "Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
 
         //when
-        when(personRepository.findPersonsByAddress("10 aaa")).thenReturn(personList);
+        when(personRepository.findAllByAddress("10 aaa")).thenReturn(personList);
         when(fireStationRepository.findFireStationByAddress("10 aaa")).thenReturn(null);
 
         //then
@@ -107,7 +107,7 @@ public class FireServiceTest {
         personList.add(new Person(2L, "Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
 
         //when
-        when(personRepository.findPersonsByAddress("10 aaa")).thenReturn(personList);
+        when(personRepository.findAllByAddress("10 aaa")).thenReturn(personList);
 
         when(fireStationRepository.findFireStationByAddress("10 aaa")).thenReturn(fireStation);
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName(anyString(), anyString())).thenReturn(null);

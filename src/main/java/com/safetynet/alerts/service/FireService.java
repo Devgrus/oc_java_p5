@@ -33,7 +33,7 @@ public class FireService {
 
 
     public FireDto getResidentList(String address) {
-        List<Person> personList = personRepository.findPersonsByAddress(address);
+        List<Person> personList = personRepository.findAllByAddress(address);
 
         if(personList.size() == 0) return null;
 

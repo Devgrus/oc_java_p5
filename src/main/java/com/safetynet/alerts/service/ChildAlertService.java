@@ -28,7 +28,7 @@ public class ChildAlertService {
     }
 
     public List<ChildAlertDto> getChildrenList(String address) {
-        List<Person> personList = personRepository.findPersonsByAddress(address); // find all persons who live at this address
+        List<Person> personList = personRepository.findAllByAddress(address); // find all persons who live at this address
 
         if(personList.size() == 0) {
             return null;

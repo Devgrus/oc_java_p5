@@ -42,8 +42,8 @@ public class PhoneAlertServiceTest {
 
         //when
         when(fireStationRepository.findFireStationsByStation(anyInt())).thenReturn(fireStationList);
-        when(personRepository.findPersonsByAddress("10 aaa")).thenReturn(personList.subList(0, 2));
-        when(personRepository.findPersonsByAddress("20 bbb")).thenReturn(personList.subList(2, 4));
+        when(personRepository.findAllByAddress("10 aaa")).thenReturn(personList.subList(0, 2));
+        when(personRepository.findAllByAddress("20 bbb")).thenReturn(personList.subList(2, 4));
 
         //then
         assertThat(phoneAlertService.getPhoneList(1).size()).isEqualTo(4);
