@@ -1,11 +1,16 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.model.MedicalRecord;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, Long> {
+@Repository
+public interface MedicalRecordRepository {
 
     MedicalRecord findMedicalRecordByFirstNameAndLastName(String firstName, String lastName);
+
+    MedicalRecord save(MedicalRecord medicalRecord);
+
+    Boolean update(MedicalRecord medicalRecord);
+
+    Boolean delete(MedicalRecord medicalRecord);
 }

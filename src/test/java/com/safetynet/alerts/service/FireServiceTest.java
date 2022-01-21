@@ -7,10 +7,12 @@ import com.safetynet.alerts.repository.FireStationRepository;
 import com.safetynet.alerts.repository.MedicalRecordRepository;
 import com.safetynet.alerts.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.mockito.Mockito.*;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class FireServiceTest {
 
     @Mock
@@ -37,16 +39,16 @@ public class FireServiceTest {
     public void getResidentListTest() {
         //given
         List<FireStation> fireStationList = new ArrayList<>();
-        FireStation fireStation = new FireStation(1L, "10 aaa", 1);
+        FireStation fireStation = new FireStation("10 aaa", 1);
 
         List<Person> personList = new ArrayList<>();
-        personList.add(new Person(1L, "Am", "Aen", "10 aaa", "aaa", 10000, "111-111-1111", "aaa@abc.com"));
-        personList.add(new Person(2L, "Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
+        personList.add(new Person("Am", "Aen", "10 aaa", "aaa", 10000, "111-111-1111", "aaa@abc.com"));
+        personList.add(new Person("Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
 
         List<MedicalRecord> medicalRecordList = new ArrayList<>();
-        medicalRecordList.add(new MedicalRecord(1L, "Am", "Aen", LocalDate.of(1990, 4, 12), List.of("a", "b"), List.of("z")));
-        medicalRecordList.add(new MedicalRecord(2L, "Bm", "Aen", LocalDate.of(2015, 5, 12), List.of(), List.of("z")));
-        medicalRecordList.add(new MedicalRecord(3L, "Cm", "Ben", LocalDate.of(1980, 6, 12), List.of("e", "f"), List.of("z")));
+        medicalRecordList.add(new MedicalRecord("Am", "Aen", LocalDate.of(1990, 4, 12), List.of("a", "b"), List.of("z")));
+        medicalRecordList.add(new MedicalRecord("Bm", "Aen", LocalDate.of(2015, 5, 12), List.of(), List.of("z")));
+        medicalRecordList.add(new MedicalRecord("Cm", "Ben", LocalDate.of(1980, 6, 12), List.of("e", "f"), List.of("z")));
 
         //when
         when(personRepository.findAllByAddress("10 aaa")).thenReturn(personList);
@@ -55,7 +57,6 @@ public class FireServiceTest {
 
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("Am", "Aen")).thenReturn(medicalRecordList.get(0));
         when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("Bm", "Aen")).thenReturn(medicalRecordList.get(1));
-        when(medicalRecordRepository.findMedicalRecordByFirstNameAndLastName("Cm", "Ben")).thenReturn(medicalRecordList.get(2));
 
         //then
         assertThat(fireService.getResidentList("10 aaa").getResident().size()).isEqualTo(2);
@@ -67,7 +68,7 @@ public class FireServiceTest {
     public void getResidentListTestPersonListIsEmpty() {
         //given
         List<FireStation> fireStationList = new ArrayList<>();
-        FireStation fireStation = new FireStation(1L, "10 aaa", 1);
+        FireStation fireStation = new FireStation("10 aaa", 1);
 
         //when
         when(personRepository.findAllByAddress("10 aaa")).thenReturn(new ArrayList<>());
@@ -81,11 +82,11 @@ public class FireServiceTest {
     public void getResidentListTestFireStationIsNull() {
         //given
         List<FireStation> fireStationList = new ArrayList<>();
-        FireStation fireStation = new FireStation(1L, "10 aaa", 1);
+        FireStation fireStation = new FireStation("10 aaa", 1);
 
         List<Person> personList = new ArrayList<>();
-        personList.add(new Person(1L, "Am", "Aen", "10 aaa", "aaa", 10000, "111-111-1111", "aaa@abc.com"));
-        personList.add(new Person(2L, "Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
+        personList.add(new Person("Am", "Aen", "10 aaa", "aaa", 10000, "111-111-1111", "aaa@abc.com"));
+        personList.add(new Person("Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
 
         //when
         when(personRepository.findAllByAddress("10 aaa")).thenReturn(personList);
@@ -100,11 +101,11 @@ public class FireServiceTest {
     public void getResidentListTestMedicalRecordListIsEmpty() {
         //given
         List<FireStation> fireStationList = new ArrayList<>();
-        FireStation fireStation = new FireStation(1L, "10 aaa", 1);
+        FireStation fireStation = new FireStation("10 aaa", 1);
 
         List<Person> personList = new ArrayList<>();
-        personList.add(new Person(1L, "Am", "Aen", "10 aaa", "aaa", 10000, "111-111-1111", "aaa@abc.com"));
-        personList.add(new Person(2L, "Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
+        personList.add(new Person("Am", "Aen", "10 aaa", "aaa", 10000, "111-111-1111", "aaa@abc.com"));
+        personList.add(new Person("Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
 
         //when
         when(personRepository.findAllByAddress("10 aaa")).thenReturn(personList);

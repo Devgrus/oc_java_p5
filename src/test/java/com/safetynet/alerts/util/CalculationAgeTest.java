@@ -1,24 +1,34 @@
 package com.safetynet.alerts.util;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.TestComponent;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.MockedStatic;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.time.*;
 
-@TestComponent
+@ExtendWith(MockitoExtension.class)
 public class CalculationAgeTest {
+
+    private static MockedStatic<Clock> mockedStatic;
 
     @BeforeAll
     static void initBefore() {
         LocalDate now = LocalDate.of(2022, 7, 1);
         Clock clock = Clock.fixed(now.atStartOfDay(ZoneId.systemDefault()).toInstant(), ZoneId.systemDefault());
-        mockStatic(Clock.class)
-                .when(Clock::systemDefaultZone)
+        mockedStatic = mockStatic(Clock.class);
+        mockedStatic.when(Clock::systemDefaultZone)
                 .thenReturn(clock);
+    }
+
+    @AfterAll
+    static void close() {
+        mockedStatic.close();
     }
 
     @Test

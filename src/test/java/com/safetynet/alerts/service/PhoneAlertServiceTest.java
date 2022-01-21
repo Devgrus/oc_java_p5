@@ -5,17 +5,19 @@ import com.safetynet.alerts.model.Person;
 import com.safetynet.alerts.repository.FireStationRepository;
 import com.safetynet.alerts.repository.PersonRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
-import org.springframework.boot.test.context.SpringBootTest;
+
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class PhoneAlertServiceTest {
 
     @Mock
@@ -31,14 +33,14 @@ public class PhoneAlertServiceTest {
     public void getPhoneListTest() {
         //given
         List<FireStation> fireStationList = new ArrayList<>();
-        fireStationList.add(new FireStation(1L, "10 aaa", 1));
-        fireStationList.add(new FireStation(1L, "20 bbb", 1));
+        fireStationList.add(new FireStation("10 aaa", 1));
+        fireStationList.add(new FireStation("20 bbb", 1));
 
         List<Person> personList = new ArrayList<>();
-        personList.add(new Person(1L, "Am", "Aen", "10 aaa", "aaa", 10000, "111-111-1111", "aaa@abc.com"));
-        personList.add(new Person(2L, "Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
-        personList.add(new Person(3L, "Cm", "Aen", "20 bbb", "aaa", 10000, "333-333-3333", "ccc@abc.com"));
-        personList.add(new Person(4L, "Dm", "Aen", "20 bbb", "aaa", 10000, "444-444-4444", "ddd@abc.com"));
+        personList.add(new Person("Am", "Aen", "10 aaa", "aaa", 10000, "111-111-1111", "aaa@abc.com"));
+        personList.add(new Person("Bm", "Aen", "10 aaa", "aaa", 10000, "222-222-2222", "bbb@abc.com"));
+        personList.add(new Person("Cm", "Aen", "20 bbb", "aaa", 10000, "333-333-3333", "ccc@abc.com"));
+        personList.add(new Person("Dm", "Aen", "20 bbb", "aaa", 10000, "444-444-4444", "ddd@abc.com"));
 
         //when
         when(fireStationRepository.findFireStationsByStation(anyInt())).thenReturn(fireStationList);
@@ -50,4 +52,31 @@ public class PhoneAlertServiceTest {
 
     }
 
+    @Test
+    public void getPhoneListTestFireStationListIsEmpty() {
+        //given
+
+        //when
+        when(fireStationRepository.findFireStationsByStation(anyInt())).thenReturn(new ArrayList<>());
+
+        //then
+        assertThat(phoneAlertService.getPhoneList(1)).isNull();
+
+    }
+
+    @Test
+    public void getPhoneListTestPersonListIsEmpty() {
+        //given
+        List<FireStation> fireStationList = new ArrayList<>();
+        fireStationList.add(new FireStation("10 aaa", 1));
+        fireStationList.add(new FireStation("20 bbb", 1));
+
+        //when
+        when(fireStationRepository.findFireStationsByStation(anyInt())).thenReturn(fireStationList);
+        when(personRepository.findAllByAddress(anyString())).thenReturn(new ArrayList<>());
+
+        //then
+        assertThat(phoneAlertService.getPhoneList(1)).isNull();
+
+    }
 }

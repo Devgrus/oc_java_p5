@@ -1,54 +1,36 @@
 package com.safetynet.alerts.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Table(name = "medical_record")
-@Entity
+@Component
 public class MedicalRecord {
 
-    @Id
-    @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
     private String lastName;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
-    @Column(nullable = false)
+    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthdate;
 
-    @ElementCollection
     private List<String> medications;
 
-    @ElementCollection
     private List<String> allergies;
 
     public MedicalRecord() {}
 
-    public MedicalRecord(Long id, String firstName, String lastName, LocalDate birthdate, List<String> medications, List<String> allergies) {
-        this.id = id;
+    public MedicalRecord(String firstName, String lastName, LocalDate birthdate, List<String> medications, List<String> allergies) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.medications = medications;
         this.allergies = allergies;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {

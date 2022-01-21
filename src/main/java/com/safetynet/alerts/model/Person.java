@@ -1,43 +1,21 @@
 package com.safetynet.alerts.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
-
-@Table(name = "PERSON")
-@Entity
+@Component
 public class Person {
 
-    @Id
-    @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(nullable = false)
     private String firstName;
-
-    @Column(nullable = false)
     private String lastName;
-
-    @Column(nullable = false)
     private String address;
-
-    @Column(nullable = false)
     private String city;
-
-    @Column(nullable = false)
     private int zip;
-
-    @Column(nullable = false)
     private String phone;
-
-    @Column(nullable = false)
     private String email;
 
     public Person() {}
 
-    public Person(Long id, String firstName, String lastName, String address, String city, int zip, String phone, String email) {
-        this.id = id;
+    public Person(String firstName, String lastName, String address, String city, int zip, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -45,14 +23,6 @@ public class Person {
         this.zip = zip;
         this.phone = phone;
         this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {

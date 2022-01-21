@@ -1,14 +1,21 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.model.FireStation;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface FireStationRepository extends JpaRepository<FireStation, Long> {
+public interface FireStationRepository {
 
     List<FireStation> findFireStationsByStation(Integer station);
+
     FireStation findFireStationByAddress(String address);
+
+    FireStation save(FireStation fireStation);
+
+    Boolean update(FireStation fireStation);
+
+    Boolean delete(FireStation fireStation);
+
 }
