@@ -12,10 +12,10 @@ public interface FireStationRepository {
 
     FireStation findFireStationByAddress(String address);
 
-    FireStation save(FireStation fireStation);
+    Boolean save(FireStation fireStation);
 
     Boolean update(FireStation fireStation);
 
-    Boolean delete(FireStation fireStation);
+    Boolean deleteByAddress(String address);
 
 }

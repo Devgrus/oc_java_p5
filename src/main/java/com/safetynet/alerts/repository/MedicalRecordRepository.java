@@ -8,9 +8,9 @@ public interface MedicalRecordRepository {
 
     MedicalRecord findMedicalRecordByFirstNameAndLastName(String firstName, String lastName);
 
-    MedicalRecord save(MedicalRecord medicalRecord);
+    Boolean save(MedicalRecord medicalRecord);
 
     Boolean update(MedicalRecord medicalRecord);
 
-    Boolean delete(MedicalRecord medicalRecord);
+    Boolean delete(String firstName, String lastName);
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -19,26 +20,54 @@ public class FireStationRepositoryImpl implements FireStationRepository {
 
     @Override
     public List<FireStation> findFireStationsByStation(Integer station) {
-        return db.getFirestations().stream().filter(i-> station == i.getStation()).collect(Collectors.toList());
+        return db.getFirestations().stream()
+                .filter(i-> station == i.getStation())
+                .collect(Collectors.toList());
     }
 
     @Override
     public FireStation findFireStationByAddress(String address) {
-        return null;
+        Optional<FireStation> resultFireStation = db.getFirestations().stream().filter(i->i.getAddress().equals(address)).findFirst();
+        return resultFireStation.orElse(null);
     }
 
     @Override
-    public FireStation save(FireStation fireStation) {
-        return null;
-    }
-
-    @Override
-    public Boolean update(FireStation fireStation) {
+    public Boolean save(FireStation fireStation) {
+        if(fireStation != null &&
+                db.getFirestations().stream()
+                        .filter(i->i.getAddress().equals(fireStation.getAddress()))
+                        .findFirst().isEmpty()) {
+            db.getFirestations().add(fireStation);
+            return true;
+        }
         return false;
     }
 
     @Override
-    public Boolean delete(FireStation fireStation) {
+    public Boolean update(FireStation fireStation) {
+        if(fireStation != null) {
+            Optional<FireStation> optionalFireStation = db.getFirestations().stream()
+                    .filter(i->i.getAddress().equals(fireStation.getAddress()))
+                    .findFirst();
+
+            if(optionalFireStation.isPresent()) {
+                optionalFireStation.get().setStation(fireStation.getStation());
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public Boolean deleteByAddress(String address) {
+        Optional<FireStation> optionalFireStation = db.getFirestations().stream().filter(i->i.getAddress().equals(address)).findFirst();
+
+        if(optionalFireStation.isPresent()) {
+            db.getFirestations().remove(optionalFireStation.get());
+
+            return true;
+        }
         return false;
     }
 }

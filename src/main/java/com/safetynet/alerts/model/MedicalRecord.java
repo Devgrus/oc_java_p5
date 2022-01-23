@@ -69,7 +69,7 @@ public class MedicalRecord {
         return allergies;
     }
 
-    public void setAllergy(List<String> allergies) {
+    public void setAllergies(List<String> allergies) {
         this.allergies = allergies;
     }
 }

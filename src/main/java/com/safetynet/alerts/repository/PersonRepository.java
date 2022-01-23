@@ -14,9 +14,9 @@ public interface PersonRepository {
 
     List<Person> findAllByCity(String city);
 
-    Person save(Person person);
+    Boolean save(Person person);
 
     Boolean update(Person person);
 
-    Boolean delete(Person person);
+    Boolean delete(String firstName, String lastName);
 }
