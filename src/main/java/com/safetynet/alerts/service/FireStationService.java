@@ -13,8 +13,16 @@ public class FireStationService {
         this.fireStationRepository = fireStationRepository;
     }
 
-    public void save(FireStation fireStation) {
-//        if(fireStation != null) fireStationRepository.save(fireStation);
+    public Boolean save(FireStation fireStation) {
+        return fireStationRepository.save(fireStation);
+    }
+
+    public Boolean update(FireStation fireStation) {
+        return fireStationRepository.update(fireStation);
+    }
+
+    public Boolean deleteByAddress(String address) {
+        return fireStationRepository.deleteByAddress(address);
     }
 
 }
