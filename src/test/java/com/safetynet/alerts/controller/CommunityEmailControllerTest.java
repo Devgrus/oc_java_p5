@@ -28,14 +28,14 @@ public class CommunityEmailControllerTest {
     @Test
     public void getEmailListTest() throws Exception {
         //given
-        List<EmailDto> emailDtoList = new ArrayList<>();
-        emailDtoList.add(new EmailDto("aaa@abc.com"));
-        emailDtoList.add(new EmailDto("bbb@abc.com"));
-        emailDtoList.add(new EmailDto("ccc@abc.com"));
-        emailDtoList.add(new EmailDto("ddd@abc.com"));
+        List<String> emailList = new ArrayList<>();
+        emailList.add("aaa@abc.com");
+        emailList.add("bbb@abc.com");
+        emailList.add("ccc@abc.com");
+        emailList.add("ddd@abc.com");
 
         //when
-        when(communityEmailService.getEmailList(anyString())).thenReturn(emailDtoList);
+        when(communityEmailService.getEmailList(anyString())).thenReturn(new EmailDto(emailList));
 
         //then
         mockMvc.perform(get("/communityEmail")

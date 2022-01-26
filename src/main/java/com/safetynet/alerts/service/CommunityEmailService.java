@@ -21,14 +21,14 @@ public class CommunityEmailService {
      * @param city city name
      * @return List of residents' emails
      */
-    public List<EmailDto> getEmailList(String city) {
-        List<EmailDto> emailDtoList = new ArrayList<>();
+    public EmailDto getEmailList(String city) {
+        List<String> emailList = new ArrayList<>();
 
-        personRepository.findAllByCity(city).forEach(i -> emailDtoList.add(new EmailDto(i.getEmail())));
+        personRepository.findAllByCity(city).forEach(i -> emailList.add(i.getEmail()));
 
-        if(emailDtoList.size() == 0) return null;
+        if(emailList.size() == 0) return null;
 
-        return emailDtoList;
+        return new EmailDto(emailList);
 
     }
 }

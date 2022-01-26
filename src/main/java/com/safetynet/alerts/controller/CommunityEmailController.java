@@ -27,14 +27,14 @@ public class CommunityEmailController {
      * @return List of residents' emails
      */
     @GetMapping(value = "/communityEmail")
-    public List<EmailDto> getEmailList(@RequestParam String city) {
+    public EmailDto getEmailList(@RequestParam String city) {
         logger.info("Request received: GET - /communityEmail, parameter(s) value(s): " + city);
 
-        List<EmailDto> emailDtoList = communityEmailService.getEmailList(city);
+        EmailDto emailDto = communityEmailService.getEmailList(city);
 
-        if(emailDtoList != null) {
+        if(emailDto != null && emailDto.getEmail().size() != 0) {
             logger.info("Result of GET city= " + city);
-            return emailDtoList;
+            return emailDto;
         } else {
             logger.error("city " + city + " does not exist");
             throw new BadRequestException("Wrong parameter value.");

@@ -39,7 +39,7 @@ public class CommunityEmailServiceTest {
         when(personRepository.findAllByCity(anyString())).thenReturn(personList);
 
         //then
-        assertThat(communityEmailService.getEmailList("aaa").get(0).getEmail()).isEqualTo("aaa@abc.com");
+        assertThat(communityEmailService.getEmailList("aaa").getEmail().get(0)).isEqualTo("aaa@abc.com");
     }
 
     @Test
