@@ -29,12 +29,14 @@ public class PhoneAlertControllerTest {
     public void getPhoneListByStationNumberTest() throws Exception {
         //given
 
-        List<PhoneAlertDto> phoneAlertDtoList = new ArrayList<>();
-        phoneAlertDtoList.add(new PhoneAlertDto("111-111-1111"));
-        phoneAlertDtoList.add(new PhoneAlertDto("111-111-2222"));
+        List<String> phoneList = new ArrayList<>();
+        phoneList.add("111-111-1111");
+        phoneList.add("111-111-2222");
+
+        PhoneAlertDto phoneAlertDto = new PhoneAlertDto(phoneList);
 
         //when
-        when(phoneAlertService.getPhoneList(anyInt())).thenReturn(phoneAlertDtoList);
+        when(phoneAlertService.getPhoneList(anyInt())).thenReturn(phoneAlertDto);
 
         //then
         mockMvc.perform(get("/phoneAlert")

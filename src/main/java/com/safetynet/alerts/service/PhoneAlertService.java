@@ -28,20 +28,20 @@ public class PhoneAlertService {
      * @param stationNumber station number
      * @return list of person who live at this station's address
      */
-    public List<PhoneAlertDto> getPhoneList(int stationNumber) {
+    public PhoneAlertDto getPhoneList(int stationNumber) {
         List<FireStation> fireStationList = fireStationRepository.findFireStationsByStation(stationNumber);
 
         if(fireStationList.size() == 0) return null;
 
-        List<PhoneAlertDto> phoneAlertDtoList = new ArrayList<>();
+        List<String> phoneList = new ArrayList<>();
 
         fireStationList.stream()
                 .map(i -> personRepository.findAllByAddress(i.getAddress()))
                 .flatMap(List::stream)
-                .forEach(i -> phoneAlertDtoList.add(new PhoneAlertDto(i.getPhone())));
+                .forEach(i -> phoneList.add(i.getPhone()));
 
-        if(phoneAlertDtoList.size() == 0) return null;
+        if(phoneList.size() == 0) return null;
 
-        return phoneAlertDtoList;
+        return new PhoneAlertDto(phoneList);
     }
 }

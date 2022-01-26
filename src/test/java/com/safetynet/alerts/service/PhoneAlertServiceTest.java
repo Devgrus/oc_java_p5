@@ -48,7 +48,7 @@ public class PhoneAlertServiceTest {
         when(personRepository.findAllByAddress("20 bbb")).thenReturn(personList.subList(2, 4));
 
         //then
-        assertThat(phoneAlertService.getPhoneList(1).size()).isEqualTo(4);
+        assertThat(phoneAlertService.getPhoneList(1).getPhone().size()).isEqualTo(4);
 
     }
 

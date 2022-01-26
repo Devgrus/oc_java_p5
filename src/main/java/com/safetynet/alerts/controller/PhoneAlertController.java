@@ -27,14 +27,14 @@ public class PhoneAlertController {
      * @return List of phone number
      */
     @GetMapping(value="/phoneAlert")
-    public List<PhoneAlertDto> getPhoneList(@RequestParam Integer firestation) {
+    public PhoneAlertDto getPhoneList(@RequestParam Integer firestation) {
         logger.info("Request received: GET - /phoneAlert parameter(s) value(s): firestation = " + firestation);
 
-        List<PhoneAlertDto> phoneAlertDtoList = phoneAlertService.getPhoneList(firestation);
+        PhoneAlertDto phoneAlertDto = phoneAlertService.getPhoneList(firestation);
 
-        if(phoneAlertDtoList != null) {
+        if(phoneAlertDto != null && phoneAlertDto.getPhone().size() != 0) {
             logger.info("Result of GET firestation=" + firestation);
-            return phoneAlertDtoList;
+            return phoneAlertDto;
         } else {
             logger.error("firestation " + firestation.toString() + " does not exist");
             throw new BadRequestException("Wrong parameter value.");

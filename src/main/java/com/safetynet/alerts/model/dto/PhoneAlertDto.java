@@ -1,20 +1,23 @@
 package com.safetynet.alerts.model.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PhoneAlertDto {
-    private String phone;
+    private List<String> phone;
 
     public PhoneAlertDto() {
     }
 
-    public PhoneAlertDto(String phone) {
+    public PhoneAlertDto(List<String> phone) {
         this.phone = phone;
     }
 
-    public String getPhone() {
+    public List<String> getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(List<String> phone) {
         this.phone = phone;
     }
 }
