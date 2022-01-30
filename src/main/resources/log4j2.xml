@@ -21,7 +21,7 @@
     </Appenders>
 
     <Loggers>
-        <logger name="org.springframework" level="info" additivity="false" >
+        <logger name="com.safetynet.alerts" level="info" additivity="false" >
             <AppenderRef ref="console" />
             <AppenderRef ref="file" />
         </logger>
